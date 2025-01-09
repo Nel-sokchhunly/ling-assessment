@@ -1,16 +1,18 @@
-import { Text, View } from "react-native";
+import SearchBar from "@src/components/leaderboard/SearchBar";
+import { StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Index() {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text>Ling Assessment</Text>
-
-    </View>
+    <SafeAreaView style={styles.container}>
+      <SearchBar />
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 10,
+    flex: 1,
+  },
+});
