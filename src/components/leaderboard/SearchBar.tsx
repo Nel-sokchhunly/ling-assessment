@@ -18,7 +18,6 @@ import {
 } from "../ui/modal";
 import { CloseIcon, Icon } from "../ui/icon";
 import { Heading } from "../ui/heading";
-import { Divider } from "../ui/divider";
 
 export default function SearchBar() {
   const [inputValue, setInputValue] = useState("");
@@ -35,7 +34,10 @@ export default function SearchBar() {
     const searchName = inputValue.toLowerCase().trim();
 
     // if searchName is empty, return
-    if (searchName === "") return;
+    if (searchName === "") {
+      dispatch(clearSearchedUser());
+      return;
+    }
 
     // Search in hashmap
     const searchResult = leaderboardHashMap[searchName];

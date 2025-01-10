@@ -1,4 +1,3 @@
-import { createSelector } from "reselect";
 import { RootState } from "@src/store";
 
 export const leaderboardArraySelector = (state: RootState) =>
@@ -10,12 +9,9 @@ export const leaderboardHashMapSelector = (state: RootState) =>
 export const searchedUserSelector = (state: RootState) =>
   state.leaderboard.searchedUser;
 
-export const selectTop10Leaderboard = createSelector(
-  leaderboardArraySelector,
-  (leaderboard) => leaderboard.slice(0, 10)
-);
+export const filteredLeaderboardListSelector = (state: RootState) =>
+  state.leaderboard.filteredLeaderboardList;
 
-export const selectBottom10Leaderboard = createSelector(
-  leaderboardArraySelector,
-  (leaderboard) => leaderboard.slice(-10)
-);
+// header sort selectors
+export const headerSortSelector = (state: RootState) =>
+  state.leaderboard.headerSort;

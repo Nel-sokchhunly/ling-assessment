@@ -1,11 +1,11 @@
 import { mockLeaderboardState } from "@src/__mocks__/mockLeaderboardState";
 import leaderboardReducer from "./leaderboardReducer";
 import {
-  CLEAR_SEARCHED_USER,
   ClearSearchUserAction,
-  UPDATE_SEARCHED_USER,
+  UpdateHeaderSortAction,
   UpdateSearchUserAction,
 } from "../actions/leaderboardActions";
+import { CLEAR_SEARCHED_USER, UPDATE_SEARCHED_USER } from "../actions/types";
 import { LeaderboardItem } from "../types/leaderboard";
 
 describe("leaderboardReducer", () => {
@@ -38,5 +38,16 @@ describe("leaderboardReducer", () => {
     const clearedState = leaderboardReducer(state, clearAction);
 
     expect(clearedState.searchedUser).toEqual(null);
+  });
+
+  it("should update the headerSort when UPDATE_HEADER_SORT action is dispatched", () => {
+    const action: UpdateHeaderSortAction = {
+      type: "UPDATE_HEADER_SORT",
+      payload: { col: "name", order: "asc" },
+    };
+
+    const state = leaderboardReducer(undefined, action);
+
+    expect(state.headerSort).toEqual({ col: "name", order: "asc" });
   });
 });

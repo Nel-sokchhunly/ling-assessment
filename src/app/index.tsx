@@ -1,21 +1,21 @@
 import DataTable from "@src/components/leaderboard/DataTable";
 import SearchBar from "@src/components/leaderboard/SearchBar";
 import {
+  filteredLeaderboardListSelector,
   searchedUserSelector,
-  selectTop10Leaderboard,
 } from "@src/selectors/leaderboardSelector";
 import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useSelector } from "react-redux";
 
 export default function Index() {
-  const top10leaderboard = useSelector(selectTop10Leaderboard);
   const searchedUser = useSelector(searchedUserSelector);
+  const filteredSearchList = useSelector(filteredLeaderboardListSelector);
 
   return (
     <SafeAreaView style={styles.container}>
       <SearchBar />
-      <DataTable data={top10leaderboard} activeItem={searchedUser} />
+      <DataTable data={filteredSearchList} activeItem={searchedUser} />
     </SafeAreaView>
   );
 }

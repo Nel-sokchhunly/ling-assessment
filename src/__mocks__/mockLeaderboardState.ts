@@ -17,6 +17,11 @@ export const mockInitialLeaderboardState: RootState = {
     hashmap: {},
     searchedUser: null,
     fuzzySearchedResult: [],
+    filteredLeaderboardList: [],
+    headerSort: {
+      col: "rank",
+      order: "asc",
+    },
   },
 };
 
@@ -24,12 +29,10 @@ export const mockLeaderboardState: RootState = {
   leaderboard: {
     ...mockInitialLeaderboardState.leaderboard,
     data: Array.from({ length: 100 }, (_, i) => leaderItemFactory(i)),
-  },
-};
-
-export const lessThan10LeaderboardState = {
-  leaderboard: {
-    ...mockInitialLeaderboardState.leaderboard,
-    data: Array.from({ length: 3 }, (_, i) => leaderItemFactory(i)),
+    hashmap: Array.from({ length: 100 }, (_, i) => leaderItemFactory(i)).reduce(
+      (acc, item) => ({ ...acc, [item.name]: item }),
+      {}
+    ),
+    searchedUser: leaderItemFactory(0),
   },
 };
