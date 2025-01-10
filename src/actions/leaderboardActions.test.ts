@@ -1,6 +1,7 @@
 import { leaderItemFactory } from "@src/__mocks__/mockLeaderboardState";
 import {
   clearSearchedUser,
+  fuzzySearchUser,
   updateHeaderSort,
   updateSearchedUser,
 } from "./leaderboardActions";
@@ -42,6 +43,20 @@ describe("leaderboard actions", () => {
     expect(updateHeaderSort(col, order)).toEqual({
       ...expectedAction,
       payload: { col, order },
+    });
+  });
+
+  // fuzzy search user action
+  it("should create an action to fuzzy search user", () => {
+    const expectedAction = {
+      type: "FUZZY_SEARCH_USER",
+    };
+
+    const search = "test";
+
+    expect(fuzzySearchUser(search)).toEqual({
+      ...expectedAction,
+      payload: search,
     });
   });
 });

@@ -1,8 +1,10 @@
+import Fuse from "fuse.js";
 import { LeaderboardActionTypes } from "@src/actions/leaderboardActions";
 import {
   CLEAR_SEARCHED_USER,
   UPDATE_HEADER_SORT,
   UPDATE_SEARCHED_USER,
+  FUZZY_SEARCH_USER,
 } from "@src/actions/types";
 import { getLeaderboardData } from "@src/service/data";
 import {
@@ -16,7 +18,6 @@ interface LeaderboardState {
   hashmap: LeaderboardHash;
   searchedUser: LeaderboardItem | null;
   filteredLeaderboardList: LeaderboardList;
-  fuzzySearchedResult: LeaderboardList;
   headerSort: {
     col: "name" | "rank";
     order: "asc" | "desc";
@@ -30,7 +31,6 @@ const initialState: LeaderboardState = {
   hashmap: leaderboardData.hash, // for instant searching, case insensitive
   searchedUser: null,
   filteredLeaderboardList: leaderboardData.arr.slice(0, 10), // default top 10
-  fuzzySearchedResult: [],
   headerSort: {
     col: "rank",
     order: "asc",
@@ -38,7 +38,7 @@ const initialState: LeaderboardState = {
 };
 
 // reducer functions
-const updateSearchedUser = (
+const updateSearchedUserHandler = (
   state: LeaderboardState,
   searchedUser: LeaderboardItem
 ): LeaderboardState => {
@@ -58,7 +58,7 @@ const updateSearchedUser = (
   };
 };
 
-const updateHeaderSort = (
+const updateHeaderSortHandler = (
   state: LeaderboardState,
   payload: { col: "name" | "rank"; order: "asc" | "desc" }
 ): LeaderboardState => {
@@ -84,6 +84,28 @@ const updateHeaderSort = (
   };
 };
 
+const fuzzySearchUserHandler = (
+  state: LeaderboardState,
+  search: string
+): LeaderboardState => {
+  const { data } = state;
+
+  const searchDatabase = new Fuse(data, {
+    keys: ["name"],
+  });
+
+  const searchResult = searchDatabase
+    .search(search)
+    .map((result) => result.item);
+
+  return {
+    ...state,
+    filteredLeaderboardList: searchResult.slice(0, 10),
+    searchedUser: null,
+    headerSort: { col: "rank", order: "asc" },
+  };
+};
+
 // main reducer
 const leaderboardReducer = (
   state = initialState,
@@ -91,7 +113,7 @@ const leaderboardReducer = (
 ): LeaderboardState => {
   switch (action.type) {
     case UPDATE_SEARCHED_USER:
-      return updateSearchedUser(state, action.payload);
+      return updateSearchedUserHandler(state, action.payload);
     case CLEAR_SEARCHED_USER:
       return {
         ...state,
@@ -99,7 +121,9 @@ const leaderboardReducer = (
         filteredLeaderboardList: state.data.slice(0, 10), // reset to top 10
       };
     case UPDATE_HEADER_SORT:
-      return updateHeaderSort(state, action.payload);
+      return updateHeaderSortHandler(state, action.payload);
+    case FUZZY_SEARCH_USER:
+      return fuzzySearchUserHandler(state, action.payload);
     default:
       return state;
   }
