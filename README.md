@@ -21,7 +21,8 @@ This project was developed as part of an assessment to showcase proficiency in:
 
 ## Technologies Used
 
-- React Native Framework: Expo
+- React Native
+- Expo
 - Typescript
 - GlueStack (Component Library)
 - Redux (State Management)
