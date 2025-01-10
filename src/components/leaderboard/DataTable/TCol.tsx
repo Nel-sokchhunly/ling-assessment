@@ -1,10 +1,11 @@
-import { StyleSheet, TextProps, Text } from "react-native";
+import { StyleSheet, TextProps, Text, View } from "react-native";
+import { ViewProps } from "react-native-svg/lib/typescript/fabric/utils";
 
-export default function Col({ children, style, ...props }: TextProps) {
+export default function Col({ children, style, ...props }: ViewProps) {
   return (
-    <Text style={[styles.col, style]} {...props}>
+    <View style={[styles.col, style]} {...props}>
       {children}
-    </Text>
+    </View>
   );
 }
 
@@ -12,11 +13,9 @@ const styles = StyleSheet.create({
   col: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
     padding: 10,
     paddingVertical: 15,
-    fontSize: 16,
-    fontWeight: "500",
   },
 });

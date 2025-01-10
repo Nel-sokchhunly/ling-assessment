@@ -1,7 +1,7 @@
 import { LeaderboardItem } from "@src/types/leaderboard";
 import TRow from "./TRow";
 import TCol from "./TCol";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Text } from "react-native";
 
 export default function DataRow({
   item,
@@ -20,14 +20,20 @@ export default function DataRow({
       ]}
       isLastRow={isLastRow}
     >
-      <TCol style={[styles.usernameCol, isActive && styles.activeCol]}>
-        {item.name}
+      <TCol style={styles.usernameCol}>
+        <Text style={[styles.colText, isActive && styles.activeText]}>
+          {item.name}
+        </Text>
       </TCol>
-      <TCol style={[styles.rankCol, isActive && styles.activeCol]}>
-        {item.rank}
+      <TCol style={styles.rankCol}>
+        <Text style={[styles.colText, isActive && styles.activeText]}>
+          {item.rank}
+        </Text>
       </TCol>
-      <TCol style={[styles.bananaCol, isActive && styles.activeCol]}>
-        {item.bananas}
+      <TCol style={styles.bananaCol}>
+        <Text style={[styles.colText, isActive && styles.activeText]}>
+          {item.bananas}
+        </Text>
       </TCol>
     </TRow>
   );
@@ -44,6 +50,11 @@ const styles = StyleSheet.create({
   bananaCol: {
     width: "30%",
   },
+  // col text styles
+  colText: {
+    fontSize: 16,
+    fontWeight: "500",
+  },
 
   // radius styles
   bottomBorderRadius: {
@@ -55,7 +66,7 @@ const styles = StyleSheet.create({
   activeRow: {
     backgroundColor: "rgb(255, 153, 0)",
   },
-  activeCol: {
+  activeText: {
     color: "white",
     fontWeight: "bold",
   },

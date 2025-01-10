@@ -1,5 +1,9 @@
 import { LeaderboardActionTypes } from "@src/actions/leaderboardActions";
-import { CLEAR_SEARCHED_USER, UPDATE_SEARCHED_USER } from "@src/actions/types";
+import {
+  CLEAR_SEARCHED_USER,
+  UPDATE_HEADER_SORT,
+  UPDATE_SEARCHED_USER,
+} from "@src/actions/types";
 import { getLeaderboardData } from "@src/service/data";
 import {
   LeaderboardHash,
@@ -13,6 +17,10 @@ interface LeaderboardState {
   searchedUser: LeaderboardItem | null;
   filteredLeaderboardList: LeaderboardList;
   fuzzySearchedResult: LeaderboardList;
+  headerSort: {
+    col: "name" | "rank";
+    order: "asc" | "desc";
+  };
 }
 
 const leaderboardData = getLeaderboardData();
@@ -23,6 +31,10 @@ const initialState: LeaderboardState = {
   searchedUser: null,
   filteredLeaderboardList: leaderboardData.arr.slice(0, 10), // default top 10
   fuzzySearchedResult: [],
+  headerSort: {
+    col: "rank",
+    order: "asc",
+  },
 };
 
 // reducer functions
@@ -42,6 +54,33 @@ const updateSearchedUser = (
     ...state,
     searchedUser,
     filteredLeaderboardList: top10, // reset filter to top 10
+    headerSort: { col: "rank", order: "asc" }, // reset sort to default
+  };
+};
+
+const updateHeaderSort = (
+  state: LeaderboardState,
+  payload: { col: "name" | "rank"; order: "asc" | "desc" }
+): LeaderboardState => {
+  const { col, order } = payload;
+  const newList = JSON.parse(JSON.stringify(state.data));
+
+  // sort based on column and order
+  const sortedList = newList.sort((a: LeaderboardItem, b: LeaderboardItem) => {
+    if (col === "name") {
+      return order === "asc"
+        ? a.name.localeCompare(b.name)
+        : b.name.localeCompare(a.name);
+    } else {
+      return order === "asc" ? a.rank - b.rank : b.rank - a.rank;
+    }
+  });
+
+  return {
+    ...state,
+    filteredLeaderboardList: sortedList.slice(0, 10),
+    searchedUser: null,
+    headerSort: { col, order },
   };
 };
 
@@ -59,6 +98,8 @@ const leaderboardReducer = (
         searchedUser: null,
         filteredLeaderboardList: state.data.slice(0, 10), // reset to top 10
       };
+    case UPDATE_HEADER_SORT:
+      return updateHeaderSort(state, action.payload);
     default:
       return state;
   }

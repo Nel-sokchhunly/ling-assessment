@@ -1,6 +1,14 @@
 import { leaderItemFactory } from "@src/__mocks__/mockLeaderboardState";
-import { clearSearchedUser, updateSearchedUser } from "./leaderboardActions";
-import { CLEAR_SEARCHED_USER, UPDATE_SEARCHED_USER } from "./types";
+import {
+  clearSearchedUser,
+  updateHeaderSort,
+  updateSearchedUser,
+} from "./leaderboardActions";
+import {
+  CLEAR_SEARCHED_USER,
+  UPDATE_HEADER_SORT,
+  UPDATE_SEARCHED_USER,
+} from "./types";
 
 describe("leaderboard actions", () => {
   it("should create an action to update the searched user", () => {
@@ -20,6 +28,20 @@ describe("leaderboard actions", () => {
     };
     expect(clearSearchedUser()).toEqual({
       ...expectedAction,
+    });
+  });
+
+  it("should create an action to update the header sort", () => {
+    const expectedAction = {
+      type: UPDATE_HEADER_SORT,
+    };
+
+    const col = "name";
+    const order = "asc";
+
+    expect(updateHeaderSort(col, order)).toEqual({
+      ...expectedAction,
+      payload: { col, order },
     });
   });
 });
