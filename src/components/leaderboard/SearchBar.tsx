@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { leaderboardHashMapSelector } from "@src/selectors/leaderboardSelector";
 import {
   clearSearchedUser,
+  fuzzySearchUser,
   updateSearchedUser,
 } from "@src/actions/leaderboardActions";
 import {
@@ -46,9 +47,18 @@ export default function SearchBar() {
     if (searchResult) {
       dispatch(updateSearchedUser(searchResult));
     } else {
-      dispatch(clearSearchedUser());
       setShowUserNotFoundModal(true);
     }
+  };
+
+  const handleFuzzySearch = () => {
+    setShowUserNotFoundModal(false);
+    dispatch(fuzzySearchUser(inputValue.trim()));
+  };
+
+  const handleCloseModal = () => {
+    dispatch(clearSearchedUser());
+    setShowUserNotFoundModal(false);
   };
 
   return (
@@ -75,29 +85,33 @@ export default function SearchBar() {
         <ModalContent>
           <ModalHeader>
             <Heading size="lg" className="text-typography-950">
-              User not found
+              Username not found
             </Heading>
-            <ModalCloseButton>
-              <Icon
-                as={CloseIcon}
-                size="lg"
-                className="stroke-background-400 group-[:hover]/modal-close-button:stroke-background-700 group-[:active]/modal-close-button:stroke-background-900 group-[:focus-visible]/modal-close-button:stroke-background-900"
-              />
-            </ModalCloseButton>
           </ModalHeader>
           <ModalFooter
             style={{
               marginTop: 20,
+              display: "flex",
+              flexDirection: "row",
             }}
           >
             <Button
               variant="outline"
               action="secondary"
-              onPress={() => {
-                setShowUserNotFoundModal(false);
-              }}
+              size="lg"
+              style={{ flex: 1 }}
+              onPress={() => handleCloseModal()}
             >
               <ButtonText>Close</ButtonText>
+            </Button>
+            <Button
+              variant="solid"
+              action="primary"
+              size="lg"
+              style={{ flex: 1 }}
+              onPress={() => handleFuzzySearch()}
+            >
+              <ButtonText>Similar Result</ButtonText>
             </Button>
           </ModalFooter>
         </ModalContent>

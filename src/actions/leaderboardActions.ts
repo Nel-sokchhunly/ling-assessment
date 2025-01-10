@@ -3,6 +3,7 @@ import {
   CLEAR_SEARCHED_USER,
   UPDATE_HEADER_SORT,
   UPDATE_SEARCHED_USER,
+  FUZZY_SEARCH_USER,
 } from "./types";
 
 // action types
@@ -20,11 +21,16 @@ export type UpdateHeaderSortAction = {
     order: "asc" | "desc";
   };
 };
+export type FuzzySearchUserAction = {
+  type: typeof FUZZY_SEARCH_USER;
+  payload: string;
+};
 
 export type LeaderboardActionTypes =
   | UpdateSearchUserAction
   | ClearSearchUserAction
-  | UpdateHeaderSortAction;
+  | UpdateHeaderSortAction
+  | FuzzySearchUserAction;
 
 // action creators
 export const updateSearchedUser = (
@@ -49,5 +55,12 @@ export const updateHeaderSort = (
   return {
     type: UPDATE_HEADER_SORT,
     payload: { col, order },
+  };
+};
+
+export const fuzzySearchUser = (searchName: string): FuzzySearchUserAction => {
+  return {
+    type: FUZZY_SEARCH_USER,
+    payload: searchName,
   };
 };
