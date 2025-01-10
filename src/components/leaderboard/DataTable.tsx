@@ -7,10 +7,13 @@ import {
   TableHead as Head,
   TableData as Data,
 } from "@components/ui/table";
+import { LeaderboardItem } from "@src/types/leaderboard";
 
-const mockData = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-export default function DataTable() {
+export default function DataTable({
+  data: tableData = [],
+}: {
+  data: LeaderboardItem[];
+}) {
   return (
     <Table style={styles.table}>
       <Header>
@@ -22,18 +25,18 @@ export default function DataTable() {
       </Header>
       <Body>
         <FlatList
-          data={mockData}
-          keyExtractor={(item) => item.toString()}
-          renderItem={({ item }) => (
+          data={tableData}
+          keyExtractor={(row) => row.uid}
+          renderItem={({ item: row, index }) => (
             <Row
               style={[
                 styles.row,
-                item === mockData.length - 1 && styles.bottomBorderRadius,
+                index === tableData.length - 1 && styles.bottomBorderRadius,
               ]}
             >
-              <Data style={styles.usernameCol}>John Smith</Data>
-              <Data style={styles.rankCol}>3</Data>
-              <Data style={styles.bananaCol}>80</Data>
+              <Data style={styles.usernameCol}>{row.name}</Data>
+              <Data style={styles.rankCol}>{row.rank}</Data>
+              <Data style={styles.bananaCol}>{row.bananas}</Data>
             </Row>
           )}
         />
