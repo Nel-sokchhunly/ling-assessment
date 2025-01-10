@@ -1,5 +1,5 @@
 import { LeaderboardActionTypes } from "@src/actions/leaderboardActions";
-import { UPDATE_SEARCHED_USER } from "@src/actions/leaderboardActions";
+import { CLEAR_SEARCHED_USER, UPDATE_SEARCHED_USER } from "@src/actions/types";
 import { getLeaderboardData } from "@src/service/data";
 import {
   LeaderboardHash,
@@ -32,6 +32,11 @@ const leaderboardReducer = (
       return {
         ...state,
         searchedUser: action.payload,
+      };
+    case CLEAR_SEARCHED_USER:
+      return {
+        ...state,
+        searchedUser: null,
       };
     default:
       return state;

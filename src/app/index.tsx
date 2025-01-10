@@ -2,7 +2,6 @@ import DataTable from "@src/components/leaderboard/DataTable";
 import SearchBar from "@src/components/leaderboard/SearchBar";
 import {
   searchedUserSelector,
-  selectBottom10Leaderboard,
   selectTop10Leaderboard,
 } from "@src/selectors/leaderboardSelector";
 import { StyleSheet } from "react-native";
