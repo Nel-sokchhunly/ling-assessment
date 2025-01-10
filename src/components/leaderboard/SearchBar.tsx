@@ -18,7 +18,6 @@ import {
 } from "../ui/modal";
 import { CloseIcon, Icon } from "../ui/icon";
 import { Heading } from "../ui/heading";
-import { Divider } from "../ui/divider";
 
 export default function SearchBar() {
   const [inputValue, setInputValue] = useState("");
