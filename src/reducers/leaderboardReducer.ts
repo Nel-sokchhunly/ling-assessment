@@ -51,6 +51,7 @@ const leaderboardReducer = (
       return {
         ...state,
         selectedFilter: action.payload,
+        searchedUser: null, // reset searched user when filter changes
       };
     default:
       return state;

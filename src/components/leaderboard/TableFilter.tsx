@@ -36,6 +36,7 @@ export default function TableFilter() {
 
       <Select
         style={{ flex: 1 }}
+        selectedValue={filter}
         onValueChange={(value) =>
           handleFilterChange(value as LeaderboardFilterTypes)
         }
