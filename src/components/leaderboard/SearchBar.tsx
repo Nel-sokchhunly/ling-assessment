@@ -35,7 +35,10 @@ export default function SearchBar() {
     const searchName = inputValue.toLowerCase().trim();
 
     // if searchName is empty, return
-    if (searchName === "") return;
+    if (searchName === "") {
+      dispatch(clearSearchedUser());
+      return;
+    }
 
     // Search in hashmap
     const searchResult = leaderboardHashMap[searchName];

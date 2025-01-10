@@ -16,10 +16,6 @@ export default function DataTable({
   data: LeaderboardItem[];
   activeItem?: LeaderboardItem | null;
 }) {
-  const isActiveItemInList = tableData.some(
-    (item) => item.uid === activeItem?.uid
-  );
-
   return (
     <Table style={styles.table}>
       <Header>
@@ -34,11 +30,6 @@ export default function DataTable({
           data={tableData}
           keyExtractor={(row) => row.uid}
           renderItem={({ item: row, index }) => {
-            if (!isActiveItemInList && index === 9 && activeItem) {
-              return (
-                <DataRow item={activeItem} isActive={true} isLastRow={true} />
-              );
-            }
             return (
               <DataRow
                 item={row}

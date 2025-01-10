@@ -1,15 +1,6 @@
 import { leaderItemFactory } from "@src/__mocks__/mockLeaderboardState";
-import {
-  clearSearchedUser,
-  updateSearchedUser,
-  updateTableFilter,
-} from "./leaderboardActions";
-import {
-  CLEAR_SEARCHED_USER,
-  UPDATE_SEARCHED_USER,
-  UPDATE_TABLE_FILTER,
-} from "./types";
-import { LeaderboardFilters } from "@src/types/leaderboard";
+import { clearSearchedUser, updateSearchedUser } from "./leaderboardActions";
+import { CLEAR_SEARCHED_USER, UPDATE_SEARCHED_USER } from "./types";
 
 describe("leaderboard actions", () => {
   it("should create an action to update the searched user", () => {
@@ -29,17 +20,6 @@ describe("leaderboard actions", () => {
     };
     expect(clearSearchedUser()).toEqual({
       ...expectedAction,
-    });
-  });
-
-  it("should create an action to update the table filter", () => {
-    const expectedAction = {
-      type: UPDATE_TABLE_FILTER,
-    };
-
-    expect(updateTableFilter(LeaderboardFilters.highestRank)).toEqual({
-      ...expectedAction,
-      payload: LeaderboardFilters.highestRank,
     });
   });
 });

@@ -10,6 +10,9 @@ export const leaderboardHashMapSelector = (state: RootState) =>
 export const searchedUserSelector = (state: RootState) =>
   state.leaderboard.searchedUser;
 
+export const filteredLeaderboardListSelector = (state: RootState) =>
+  state.leaderboard.filteredLeaderboardList;
+
 // derived data selectors
 export const selectTop10Leaderboard = createSelector(
   leaderboardArraySelector,
@@ -20,7 +23,3 @@ export const selectBottom10Leaderboard = createSelector(
   leaderboardArraySelector,
   (leaderboard) => leaderboard.slice(-10)
 );
-
-// filters
-export const leaderboardFilterSelector = (state: RootState) =>
-  state.leaderboard.selectedFilter;
