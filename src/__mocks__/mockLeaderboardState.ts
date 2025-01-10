@@ -1,4 +1,5 @@
 import { RootState } from "@src/store";
+import { LeaderboardFilters } from "@src/types/leaderboard";
 
 export const leaderItemFactory = (i: number) => ({
   uid: i.toString(),
@@ -17,6 +18,7 @@ export const mockInitialLeaderboardState: RootState = {
     hashmap: {},
     searchedUser: null,
     fuzzySearchedResult: [],
+    selectedFilter: LeaderboardFilters.highestRank,
   },
 };
 

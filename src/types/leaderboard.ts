@@ -14,3 +14,12 @@ export type LeaderboardList = LeaderboardItem[];
 export type LeaderboardHash = {
   [key: LeaderboardItem["name"]]: LeaderboardItem;
 };
+
+// table filter
+export const LeaderboardFilters = Object.freeze({
+  highestRank: "Highest Rank",
+  lowestRank: "Lowest Rank",
+});
+
+export type LeaderboardFilterTypes =
+  (typeof LeaderboardFilters)[keyof typeof LeaderboardFilters];

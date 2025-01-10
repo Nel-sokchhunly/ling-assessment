@@ -1,5 +1,12 @@
-import { LeaderboardItem } from "@src/types/leaderboard";
-import { CLEAR_SEARCHED_USER, UPDATE_SEARCHED_USER } from "./types";
+import {
+  LeaderboardFilterTypes,
+  LeaderboardItem,
+} from "@src/types/leaderboard";
+import {
+  CLEAR_SEARCHED_USER,
+  UPDATE_SEARCHED_USER,
+  UPDATE_TABLE_FILTER,
+} from "./types";
 
 // action types
 export type UpdateSearchUserAction = {
@@ -10,9 +17,15 @@ export type ClearSearchUserAction = {
   type: typeof CLEAR_SEARCHED_USER;
 };
 
+export type UpdateTableFilterAction = {
+  type: typeof UPDATE_TABLE_FILTER;
+  payload: LeaderboardFilterTypes;
+};
+
 export type LeaderboardActionTypes =
   | UpdateSearchUserAction
-  | ClearSearchUserAction;
+  | ClearSearchUserAction
+  | UpdateTableFilterAction;
 
 // action creators
 export const updateSearchedUser = (
@@ -27,5 +40,14 @@ export const updateSearchedUser = (
 export const clearSearchedUser = (): ClearSearchUserAction => {
   return {
     type: CLEAR_SEARCHED_USER,
+  };
+};
+
+export const updateTableFilter = (
+  data: LeaderboardFilterTypes
+): UpdateTableFilterAction => {
+  return {
+    type: UPDATE_TABLE_FILTER,
+    payload: data,
   };
 };

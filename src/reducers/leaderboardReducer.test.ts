@@ -1,11 +1,10 @@
 import { mockLeaderboardState } from "@src/__mocks__/mockLeaderboardState";
 import leaderboardReducer from "./leaderboardReducer";
 import {
-  CLEAR_SEARCHED_USER,
   ClearSearchUserAction,
-  UPDATE_SEARCHED_USER,
   UpdateSearchUserAction,
 } from "../actions/leaderboardActions";
+import { CLEAR_SEARCHED_USER, UPDATE_SEARCHED_USER } from "../actions/types";
 import { LeaderboardItem } from "../types/leaderboard";
 
 describe("leaderboardReducer", () => {
