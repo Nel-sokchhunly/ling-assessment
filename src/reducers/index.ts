@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import leaderboardReducer from "./LeaderboardReducer";
+import leaderboardReducer from "./leaderboardReducer";
 
 const rootReducer = combineReducers({
   leaderboard: leaderboardReducer,
