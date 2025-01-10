@@ -1,4 +1,3 @@
-// leaderboard action types
-export enum LeaderboardActionTypes {
-  SEARCH = "SEARCH",
-}
+// types
+export const UPDATE_SEARCHED_USER = "UPDATE_SEARCHED_USER";
+export const CLEAR_SEARCHED_USER = "CLEAR_SEARCHED_USER";

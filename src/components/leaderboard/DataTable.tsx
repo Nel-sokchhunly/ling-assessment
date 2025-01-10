@@ -1,4 +1,4 @@
-import { Text, View, FlatList, StyleSheet } from "react-native";
+import { Text, View, FlatList, StyleSheet, Dimensions } from "react-native";
 import {
   Table,
   TableHeader as Header,
@@ -11,9 +11,15 @@ import { LeaderboardItem } from "@src/types/leaderboard";
 
 export default function DataTable({
   data: tableData = [],
+  activeItem,
 }: {
   data: LeaderboardItem[];
+  activeItem?: LeaderboardItem | null;
 }) {
+  const isActiveItemInTop10 = tableData.some(
+    (item) => item.uid === activeItem?.uid
+  );
+
   return (
     <Table style={styles.table}>
       <Header>
@@ -27,23 +33,55 @@ export default function DataTable({
         <FlatList
           data={tableData}
           keyExtractor={(row) => row.uid}
-          renderItem={({ item: row, index }) => (
-            <Row
-              style={[
-                styles.row,
-                index === tableData.length - 1 && styles.bottomBorderRadius,
-              ]}
-            >
-              <Data style={styles.usernameCol}>{row.name}</Data>
-              <Data style={styles.rankCol}>{row.rank}</Data>
-              <Data style={styles.bananaCol}>{row.bananas}</Data>
-            </Row>
-          )}
+          renderItem={({ item: row, index }) => {
+            if (!isActiveItemInTop10 && index === 9 && activeItem) {
+              return (
+                <DataRow item={activeItem} isActive={true} isLastRow={true} />
+              );
+            }
+            return (
+              <DataRow
+                item={row}
+                isActive={activeItem?.uid === row.uid}
+                isLastRow={index === tableData.length - 1}
+              />
+            );
+          }}
         />
       </Body>
     </Table>
   );
 }
+
+const DataRow = ({
+  item,
+  isActive,
+  isLastRow,
+}: {
+  item: LeaderboardItem;
+  isActive: boolean;
+  isLastRow: boolean;
+}) => {
+  return (
+    <Row
+      style={[
+        styles.row,
+        isLastRow && styles.bottomBorderRadius,
+        isActive && styles.activeRow,
+      ]}
+    >
+      <Data style={[styles.usernameCol, isActive && styles.activeCol]}>
+        {item.name}
+      </Data>
+      <Data style={[styles.rankCol, isActive && styles.activeCol]}>
+        {item.rank}
+      </Data>
+      <Data style={[styles.bananaCol, isActive && styles.activeCol]}>
+        {item.bananas}
+      </Data>
+    </Row>
+  );
+};
 
 const styles = StyleSheet.create({
   table: {
@@ -72,5 +110,14 @@ const styles = StyleSheet.create({
   bottomBorderRadius: {
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
+  },
+
+  // active item styles
+  activeRow: {
+    backgroundColor: "rgb(255, 153, 0)",
+  },
+  activeCol: {
+    color: "white",
+    fontWeight: "bold",
   },
 });

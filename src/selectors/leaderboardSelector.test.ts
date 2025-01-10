@@ -4,8 +4,9 @@ import {
 } from "./leaderboardSelector";
 import {
   lessThan10LeaderboardState,
+  mockInitialLeaderboardState,
   mockLeaderboardState,
-} from "../__mocks__/mockLeaderboardState";
+} from "@src/__mocks__/mockLeaderboardState";
 
 describe("leaderboard selectors", () => {
   // when list is bigger than 10
@@ -23,13 +24,25 @@ describe("leaderboard selectors", () => {
 
   // when list is empty
   it("should return empty array for top 10 leaderboard when leaderboard is empty", () => {
-    expect(selectTop10Leaderboard({ leaderboard: { data: [] } })).toEqual([]);
+    expect(
+      selectTop10Leaderboard({
+        leaderboard: {
+          ...mockInitialLeaderboardState.leaderboard,
+          data: [], // empty data
+        },
+      })
+    ).toEqual([]);
   });
 
   it("should return empty array for bottom 10 leaderboard when leaderboard is empty", () => {
-    expect(selectBottom10Leaderboard({ leaderboard: { data: [] } })).toEqual(
-      []
-    );
+    expect(
+      selectBottom10Leaderboard({
+        leaderboard: {
+          ...mockInitialLeaderboardState.leaderboard,
+          data: [], // empty data
+        },
+      })
+    ).toEqual([]);
   });
 
   // when list is smaller than 10

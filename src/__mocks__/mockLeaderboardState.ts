@@ -11,14 +11,25 @@ export const leaderItemFactory = (i: number) => ({
   subscribed: true,
 });
 
+export const mockInitialLeaderboardState: RootState = {
+  leaderboard: {
+    data: [],
+    hashmap: {},
+    searchedUser: null,
+    fuzzySearchedResult: [],
+  },
+};
+
 export const mockLeaderboardState: RootState = {
   leaderboard: {
+    ...mockInitialLeaderboardState.leaderboard,
     data: Array.from({ length: 100 }, (_, i) => leaderItemFactory(i)),
   },
 };
 
 export const lessThan10LeaderboardState = {
   leaderboard: {
+    ...mockInitialLeaderboardState.leaderboard,
     data: Array.from({ length: 3 }, (_, i) => leaderItemFactory(i)),
   },
 };

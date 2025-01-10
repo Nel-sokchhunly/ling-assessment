@@ -1,14 +1,21 @@
 import { createSelector } from "reselect";
 import { RootState } from "@src/store";
 
-export const leaderboardSelector = (state: RootState) => state.leaderboard;
+export const leaderboardArraySelector = (state: RootState) =>
+  state.leaderboard.data;
+
+export const leaderboardHashMapSelector = (state: RootState) =>
+  state.leaderboard.hashmap;
+
+export const searchedUserSelector = (state: RootState) =>
+  state.leaderboard.searchedUser;
 
 export const selectTop10Leaderboard = createSelector(
-  leaderboardSelector,
-  (leaderboard) => leaderboard.data.slice(0, 10)
+  leaderboardArraySelector,
+  (leaderboard) => leaderboard.slice(0, 10)
 );
 
 export const selectBottom10Leaderboard = createSelector(
-  leaderboardSelector,
-  (leaderboard) => leaderboard.data.slice(-10)
+  leaderboardArraySelector,
+  (leaderboard) => leaderboard.slice(-10)
 );

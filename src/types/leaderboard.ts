@@ -10,3 +10,7 @@ export type LeaderboardItem = {
 };
 
 export type LeaderboardList = LeaderboardItem[];
+
+export type LeaderboardHash = {
+  [key: LeaderboardItem["name"]]: LeaderboardItem;
+};
