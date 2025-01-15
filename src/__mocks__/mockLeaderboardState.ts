@@ -16,7 +16,6 @@ export const mockInitialLeaderboardState: RootState = {
     data: [],
     hashmap: {},
     searchedUser: null,
-    fuzzySearchedResult: [],
     filteredLeaderboardList: [],
     headerSort: {
       col: "rank",
